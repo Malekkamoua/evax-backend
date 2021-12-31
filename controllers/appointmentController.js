@@ -68,10 +68,10 @@ router.post('/book', async (req, res, next) => {
     const appointment_free = await Appointment.findOneAndUpdate(
       {
         user_id: null,
-        center_id,
-        date: { $gte: transformDate },
+        center_id= center_id.toString(),
+        date: { $gte: transformDate.toString() },
       },
-      { user_id },
+      { user_id: user_id.toString() },
       { new: true }
     );
     if (!appointment_free) {
