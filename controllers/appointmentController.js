@@ -56,7 +56,7 @@ router.post('/book', async (req, res, next) => {
     }
     const user_got_appointment = await Appointment.find({
       reported: false,
-      user_id: user_id,
+      user_id: user_id.toString(),
     });
 
     if (user_got_appointment.length != 0) {
@@ -67,10 +67,10 @@ router.post('/book', async (req, res, next) => {
     const appointment_free = await Appointment.findOneAndUpdate(
       {
         user_id: null,
-        center_id,
+        center_id: center_id.toString(),
         date: { $gte: transformDate },
       },
-      { user_id },
+      { user_id: user_id.toString() },
       { new: true }
     );
     if (!appointment_free) {
