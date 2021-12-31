@@ -74,7 +74,7 @@ const sendMail = require('../utils/mailer');
  */
 router.post('/register', async (req, res) => {
   const isEmailExist = await User.findOne({
-    email: (req.body.email).toString(),
+    email: req.body.email,
   });
 
   // throw error when email already registered
@@ -157,7 +157,7 @@ router.post('/register', async (req, res) => {
  */
 router.post('/login', async (req, res) => {
   const user = await User.findOne({
-    email: req.body.email.toString(),
+    email: req.body.email,
   });
 
   // throw error when email is wrong
