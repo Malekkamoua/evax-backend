@@ -56,7 +56,7 @@ router.post('/book', async (req, res, next) => {
     }
     let query = {
       reported: false,
-      user_id: user_id,
+      user_id: user_id.toString(),
     };
     const user_got_appointment = await Appointment.find(query).toArray();
 
