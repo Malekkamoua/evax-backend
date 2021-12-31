@@ -54,11 +54,10 @@ router.post('/book', async (req, res, next) => {
     if (!user) {
       return res.status(404).json({ message: 'user not found' });
     }
-    let query = {
+    const user_got_appointment = await Appointment.find({
       reported: false,
-      user_id: user_id.toString(),
-    };
-    const user_got_appointment = await Appointment.find(query).toArray();
+      user_id: user_id,
+    });
 
     if (user_got_appointment.length != 0) {
       return res
@@ -68,10 +67,10 @@ router.post('/book', async (req, res, next) => {
     const appointment_free = await Appointment.findOneAndUpdate(
       {
         user_id: null,
-        center_id= center_id.toString(),
-        date: { $gte: transformDate.toString() },
+        center_id,
+        date: { $gte: transformDate },
       },
-      { user_id: user_id.toString() },
+      { user_id },
       { new: true }
     );
     if (!appointment_free) {
